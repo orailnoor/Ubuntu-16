@@ -10,6 +10,7 @@
 # ==============================================================================
 
 # --- 全局变量和初始化 ---
+export DEBIAN_FRONTEND=noninteractive
 LANG_CHOICE="en"
 TARGET_USER=$(whoami)
 
