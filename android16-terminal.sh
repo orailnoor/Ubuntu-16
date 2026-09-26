@@ -221,6 +221,7 @@ EOF
 		geometry=1920x1080
 		localhost=no
 		alwaysshared
+		SecurityTypes=VncAuth
 	EOF
     info "$(printf "$(lang config_success)" "~/.vnc/config")"
     echo ":1=$TARGET_USER" | sudo tee /etc/tigervnc/vncserver.users >/dev/null
