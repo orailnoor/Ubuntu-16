@@ -151,9 +151,9 @@ function user_selections() {
     fi
 
     # Force GNOME desktop
-    DESKTOP_NAME="GNOME"
-    TASKSEL_TASK="gnome-desktop"
-    VNC_SESSION="gnome"
+    DESKTOP_NAME="XFCE"
+    TASKSEL_TASK="xfce-desktop"
+    VNC_SESSION="xfce"
 
     # Confirmation
     clear
@@ -208,7 +208,7 @@ function setup_vnc() {
     banner "$(lang vnc_config)"; install_package "tigervnc-standalone-server"; install_package "tigervnc-common"
     info "$(lang vnc_passwd_prompt)"; run_cmd vncpasswd
     mkdir -p ~/.vnc
-    curl -Lo ~/.vnc/xstartup https://raw.githubusercontent.com/orailnoor/Ubuntu-16/main/xstartup
+    curl -Lo ~/.vnc/xstartup https://raw.githubusercontent.com/orailnoor/Ubuntu-16/main/xstartup-xfce
     chmod +x ~/.vnc/xstartup
     cat > ~/.vnc/config <<- EOF
 		session=$VNC_SESSION
