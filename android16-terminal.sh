@@ -153,7 +153,7 @@ function user_selections() {
     # Force GNOME desktop
     DESKTOP_NAME="LXDE"
     TASKSEL_TASK="lxde-core"
-    VNC_SESSION="lxde"
+    VNC_SESSION="LXDE"
 
     # Confirmation
     clear
