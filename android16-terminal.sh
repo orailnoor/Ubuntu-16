@@ -201,7 +201,7 @@ function setup_ssh() {
 # 步骤4: 安装桌面环境
 function install_desktop() {
     banner "$(printf "$(lang desktop_install)" "$DESKTOP_NAME")"
-    run_cmd sudo apt-get install -y xfce4 xfce4-goodies
+    run_cmd sudo apt-get install -y xfce4 xfce4-goodies dbus-x11
 }
 
 # 步骤5: 安装和配置 VNC
@@ -213,7 +213,7 @@ function setup_vnc() {
 #!/bin/sh
 unset SESSION_MANAGER
 unset DBUS_SESSION_BUS_ADDRESS
-exec startxfce4
+exec dbus-launch startxfce4
 EOF
     chmod +x ~/.vnc/xstartup
     cat > ~/.vnc/config <<- EOF
