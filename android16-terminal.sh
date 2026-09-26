@@ -208,14 +208,9 @@ function install_desktop() {
 function setup_vnc() {
     banner "$(lang vnc_config)"; install_package "tigervnc-standalone-server"; install_package "tigervnc-common"
     info "$(lang vnc_passwd_prompt)"; run_cmd vncpasswd
+    sudo mkdir -p /tmp/.X11-unix; sudo chmod 1777 /tmp/.X11-unix
     mkdir -p ~/.vnc
-    cat > ~/.vnc/xstartup <<- 'EOF'
-#!/bin/sh
-unset SESSION_MANAGER
-unset DBUS_SESSION_BUS_ADDRESS
-exec dbus-launch startlxde
-EOF
-    chmod +x ~/.vnc/xstartup
+    rm -f ~/.vnc/xstartup
     cat > ~/.vnc/config <<- EOF
 		session=$VNC_SESSION
 		geometry=1920x1080
