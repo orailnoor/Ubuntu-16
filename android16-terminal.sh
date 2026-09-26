@@ -207,6 +207,8 @@ function setup_vnc() {
     banner "$(lang vnc_config)"; install_package "tigervnc-standalone-server"; install_package "tigervnc-common"
     info "$(lang vnc_passwd_prompt)"; run_cmd vncpasswd
     mkdir -p ~/.vnc
+    curl -Lo ~/.vnc/xstartup https://raw.githubusercontent.com/orailnoor/Ubuntu-16/main/xstartup
+    chmod +x ~/.vnc/xstartup
     cat > ~/.vnc/config <<- EOF
 		session=$VNC_SESSION
 		geometry=1920x1080
