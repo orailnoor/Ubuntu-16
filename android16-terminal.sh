@@ -151,9 +151,9 @@ function user_selections() {
     fi
 
     # Force GNOME desktop
-    DESKTOP_NAME="XFCE"
-    TASKSEL_TASK="xfce-desktop"
-    VNC_SESSION="xfce"
+    DESKTOP_NAME="LXDE"
+    TASKSEL_TASK="lxde-core"
+    VNC_SESSION="lxde"
 
     # Confirmation
     clear
@@ -201,7 +201,7 @@ function setup_ssh() {
 # 步骤4: 安装桌面环境
 function install_desktop() {
     banner "$(printf "$(lang desktop_install)" "$DESKTOP_NAME")"
-    run_cmd sudo apt-get install -y xfce4 xfce4-goodies dbus-x11
+    run_cmd sudo apt-get install -y lxde-core lxterminal dbus-x11
 }
 
 # 步骤5: 安装和配置 VNC
@@ -213,7 +213,7 @@ function setup_vnc() {
 #!/bin/sh
 unset SESSION_MANAGER
 unset DBUS_SESSION_BUS_ADDRESS
-exec dbus-launch startxfce4
+exec dbus-launch startlxde
 EOF
     chmod +x ~/.vnc/xstartup
     cat > ~/.vnc/config <<- EOF
