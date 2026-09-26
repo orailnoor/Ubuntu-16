@@ -199,8 +199,7 @@ function setup_ssh() {
 # 步骤4: 安装桌面环境
 function install_desktop() {
     banner "$(printf "$(lang desktop_install)" "$DESKTOP_NAME")"
-    install_package "tasksel"
-    run_cmd sudo tasksel install $TASKSEL_TASK
+    run_cmd sudo apt-get install -y xfce4 xfce4-goodies
 }
 
 # 步骤5: 安装和配置 VNC
