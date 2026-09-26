@@ -182,7 +182,9 @@ function prepare_system() {
         info "$(lang locale_prompt)"
         prompt_continue
         install_package "locales"
-        run_cmd sudo dpkg-reconfigure locales
+        sudo sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen
+        run_cmd sudo locale-gen en_US.UTF-8
+        sudo update-locale LANG=en_US.UTF-8
     else
         info "$(lang locale_utf8_ok)"
     fi
@@ -207,7 +209,12 @@ function setup_vnc() {
     banner "$(lang vnc_config)"; install_package "tigervnc-standalone-server"; install_package "tigervnc-common"
     info "$(lang vnc_passwd_prompt)"; run_cmd vncpasswd
     mkdir -p ~/.vnc
-    curl -Lo ~/.vnc/xstartup https://raw.githubusercontent.com/orailnoor/Ubuntu-16/main/xstartup-xfce
+    cat > ~/.vnc/xstartup <<- 'EOF'
+#!/bin/sh
+unset SESSION_MANAGER
+unset DBUS_SESSION_BUS_ADDRESS
+exec startxfce4
+EOF
     chmod +x ~/.vnc/xstartup
     cat > ~/.vnc/config <<- EOF
 		session=$VNC_SESSION
