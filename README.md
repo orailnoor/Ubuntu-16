@@ -19,14 +19,13 @@ This setup requires a device supporting the **Android 16 Virtualization Framewor
 
 ## Installation
 
-First, open the Terminal app and run the following commands to install `git`, clone the repository, and start the installer:
+First, open the Terminal app and run the following commands to download and start the installer:
 
 ```bash
 sudo apt update
-sudo apt install -y git
-git clone https://github.com/orailnoor/Ubuntu-16.git
-cd Ubuntu-16
-chmod +x ./android16-terminal.sh
+sudo apt install -y curl
+curl -O https://raw.githubusercontent.com/orailnoor/Ubuntu-16/main/android16-terminal.sh
+chmod +x android16-terminal.sh
 ./android16-terminal.sh
 ```
 
