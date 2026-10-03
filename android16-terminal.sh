@@ -150,10 +150,10 @@ function user_selections() {
         sudo passwd $TARGET_USER
     fi
 
-    # Force GNOME desktop
-    DESKTOP_NAME="LXDE"
-    TASKSEL_TASK="lxde-core"
-    VNC_SESSION="LXDE"
+    # Force LXQt desktop (Lightweight for Android VM)
+    DESKTOP_NAME="LXQt"
+    TASKSEL_TASK="lxqt-core"
+    VNC_SESSION="lxqt"
 
     # Confirmation
     clear
@@ -201,7 +201,22 @@ function setup_ssh() {
 # 步骤4: 安装桌面环境
 function install_desktop() {
     banner "$(printf "$(lang desktop_install)" "$DESKTOP_NAME")"
-    run_cmd sudo apt-get install -y lxde-core lxterminal dbus-x11
+    run_cmd sudo apt-get install -y lxqt-core lxterminal dbus-x11
+}
+
+# 步骤4.5: 配置 Swap 内存 (防止 Android VM OOM)
+function setup_swap() {
+    info "Configuring 2GB Swap memory to prevent VM crashes..."
+    if [ ! -f /swapfile ]; then
+        sudo dd if=/dev/zero of=/swapfile bs=1M count=2048 status=progress
+        sudo chmod 600 /swapfile
+        sudo mkswap /swapfile
+        sudo swapon /swapfile
+        echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+        info "Swap memory successfully configured."
+    else
+        info "Swap file already exists, skipping."
+    fi
 }
 
 # 步骤5: 安装和配置 VNC
@@ -213,7 +228,7 @@ function setup_vnc() {
     rm -f ~/.vnc/xstartup
     cat > ~/.vnc/config <<- EOF
 		session=$VNC_SESSION
-		geometry=1920x1080
+		geometry=2400x1080
 		localhost=no
 		alwaysshared
 		SecurityTypes=VncAuth
@@ -250,7 +265,7 @@ function final_summary() {
 
 # --- 主程序入口 ---
 function main() {
-    user_selections; prepare_system; setup_ssh; install_desktop; setup_vnc; optional_components; final_summary
+    user_selections; prepare_system; setup_ssh; install_desktop; setup_swap; setup_vnc; optional_components; final_summary
 }
 
 # 执行主函数
