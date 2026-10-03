@@ -19,24 +19,38 @@ This setup requires a device supporting the **Android 16 Virtualization Framewor
 
 ## Installation
 
-First, clone this repository directly inside your Android Terminal app, then run the installer:
+First, open the Terminal app and run the following commands to install `git`, clone the repository, and start the installer:
 
 ```bash
+sudo apt update
+sudo apt install -y git
 git clone https://github.com/orailnoor/Ubuntu-16.git
 cd Ubuntu-16
 chmod +x ./android16-terminal.sh
 ./android16-terminal.sh
 ```
 
-## Connecting via VNC
+## Connecting to the Desktop
 
-Once installed, you can connect from your host PC using ADB port forwarding:
+You can connect to your desktop either locally directly on your phone, or remotely from a PC.
 
-1. Forward the VNC port:
+### Option A: Local Connection (On your Phone)
+
+You can use a VNC viewer app on your phone to view the desktop locally without needing a PC.
+1. Download **RealVNC Viewer** from the [Google Play Store](https://play.google.com/store/apps/details?id=com.realvnc.viewer.android).
+2. Open the app and create a new connection.
+3. Set the Address to: `127.0.0.1:5901`
+4. Connect and enter the VNC password you set during installation.
+
+### Option B: Remote Connection (From a PC)
+
+If you want to view the desktop on a larger screen, you can connect from your host PC using ADB port forwarding over a USB cable:
+
+1. Connect your phone to your PC and forward the VNC port:
    ```bash
    adb forward tcp:5901 tcp:5901
    ```
-2. Open TigerVNC Viewer on your PC and connect to:
+2. Open TigerVNC Viewer (or RealVNC) on your PC and connect to:
    ```
    127.0.0.1:5901
    ```
