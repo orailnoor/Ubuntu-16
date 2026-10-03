@@ -12,11 +12,18 @@ The Android 16 Terminal app provisions a Virtual Machine with constrained memory
 - **Remote Access:** Configures SSH (Port 10022) and TigerVNC (TCP 5901) for direct access via ADB forwarding.
 - **Bilingual Interface:** Supports English and Simplified Chinese installation menus.
 
+## Device Compatibility
+
+This setup requires a device supporting the **Android 16 Virtualization Framework (AVF)** with the official Terminal application. 
+- **Supported Devices:** Pixel 8, Pixel 8 Pro, Pixel 8a, Pixel 9 series (running Android 16+ developer previews with AVF enabled).
+
 ## Installation
 
-Run the following commands directly inside the Android 16 Terminal app:
+First, clone this repository directly inside your Android Terminal app, then run the installer:
 
 ```bash
+git clone https://github.com/orailnoor/Ubuntu-16.git
+cd Ubuntu-16
 chmod +x ./android16-terminal.sh
 ./android16-terminal.sh
 ```
