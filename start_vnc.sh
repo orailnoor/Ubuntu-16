@@ -1,20 +1,25 @@
 #!/bin/bash
 
-echo "Stopping existing VNC servers..."
+# Restart VNC server after a VM reboot or crash.
+# Automatically re-enables swap if it was lost during reboot.
+
+echo "Stopping existing VNC processes..."
 vncserver -kill :1 2>/dev/null
 pkill -f Xtigervnc 2>/dev/null
 sleep 1
 
-echo "Starting VNC server..."
-Xtigervnc :1 -geometry 2400x1080 -depth 24 -rfbport 5901 -rfbauth /home/droid/.config/tigervnc/passwd -SecurityTypes VncAuth -noreset -localhost no &
-sleep 2
+# Re-activate swap if not already active
+if ! swapon --show | grep -q /swapfile; then
+    sudo swapon /swapfile 2>/dev/null
+fi
 
-export DISPLAY=:1
-~/.vnc/xstartup &
-sleep 1
+echo "Starting VNC server on :1..."
+vncserver :1
 
 IP=$(hostname -I | awk '{print $1}')
-echo -e "\033[1;36m======================================\033[0m"
-echo -e "\033[1;32m✅ VNC Server Started!\033[0m"
-echo -e "\033[1;33m📱 Connect VNC App to: $IP:5901\033[0m"
-echo -e "\033[1;36m======================================\033[0m"
+echo ""
+echo "======================================"
+echo "  VNC Server Running"
+echo "  Connect to: $IP:5901"
+echo "  Or locally: 127.0.0.1:5901"
+echo "======================================"
